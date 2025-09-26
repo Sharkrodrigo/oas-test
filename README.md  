@@ -1,4 +1,76 @@
 API Models - Payment Scheduling
 
-Este repositório contém a OpenAPI Specification (OAS 3.0) para a API de agendamento de pagamentos. 
-Ele serve como a fonte única de verdade (single source of truth) para front-end e back-end, permitindo gerar automaticamente interfaces, services e SDKs.
+Este repositório contém a OpenAPI Specification (OAS 3.0) para a API de agendamento de pagamentos. Ele serve como a fonte única de verdade (single source of truth) para front-end e back-end, permitindo gerar automaticamente interfaces, services e SDKs.
+
+Estrutura do repositório
+api-models/
+├─ openapi.yaml       # Arquivo principal da API
+├─ README.md          # Documentação do repositório
+└─ versions/          # Versões antigas do YAML (opcional)
+
+
+openapi.yaml: define todos os endpoints, schemas e exemplos de request/response.
+
+versions/: snapshots históricos ou versões antigas do YAML.
+
+Endpoints principais
+Endpoint	Método	Descrição
+/payments	GET	Lista todos os pagamentos
+/payments	POST	Cria um novo pagamento
+/payments/{id}	GET	Busca um pagamento por ID
+/payments/{id}	PUT	Atualiza um pagamento existente
+/payments/{id}	DELETE	Remove um pagamento
+Schemas principais
+
+Payment: modelo completo de pagamento
+
+PaymentCreate: dados necessários para criar um pagamento
+
+PaymentUpdate: dados permitidos para atualizar um pagamento
+
+Cada schema possui campos obrigatórios (required) e exemplos de request/response.
+
+Como visualizar
+
+Swagger Editor Online: https://editor.swagger.io/
+
+Cole o openapi.yaml e visualize a documentação interativa.
+
+Redoc: https://redocly.github.io/redoc/
+
+VS Code:
+
+Instale a extensão Swagger Viewer
+
+Abra openapi.yaml e clique em Preview Swagger
+
+Como usar no front-end
+
+Clone o repositório:
+
+git clone https://github.com/usuario/api-models.git
+
+
+Use um generator OpenAPI (ex.: OpenAPI Generator) para criar interfaces e services Angular:
+
+openapi-generator-cli generate \
+  -i https://raw.githubusercontent.com/usuario/api-models/main/openapi.yaml \
+  -g typescript-angular \
+  -o ./src/app/api
+
+
+Os arquivos gerados incluem:
+
+models/ → Interfaces TypeScript (Payment, PaymentCreate, PaymentUpdate)
+
+services/ → Services Angular para CRUD completo
+
+Versionamento
+
+Atualizações no YAML devem ser versionadas usando tags ou branches, garantindo que projetos dependentes possam se manter estáveis.
+
+Contato
+
+Maintainer: Davi Rodrigo
+
+Email: davirodrigo2524@gmail.com
