@@ -1,0 +1,185 @@
+openapi: 3.0.3
+info:
+  title: Payment Scheduling API
+  version: 1.0.0
+  description: API para gerenciar agendamentos de pagamentos
+servers:
+  - url: https://api.exemplo.com
+paths:
+  /payments:
+    get:
+      summary: Lista todos os pagamentos agendados
+      responses:
+        '200':
+          description: Lista de pagamentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+              example:
+                - id: "1"
+                  userId: "123"
+                  amount: 250.50
+                  currency: "BRL"
+                  scheduledDate: "2025-10-30T10:00:00Z"
+                  status: "pending"
+    post:
+      summary: Cria um novo pagamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreate'
+            example:
+              userId: "123"
+              amount: 250.50
+              currency: "BRL"
+              scheduledDate: "2025-10-30T10:00:00Z"
+      responses:
+        '201':
+          description: Pagamento criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              example:
+                id: "1"
+                userId: "123"
+                amount: 250.50
+                currency: "BRL"
+                scheduledDate: "2025-10-30T10:00:00Z"
+                status: "pending"
+  /payments/{id}:
+    get:
+      summary: Busca um pagamento por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '200':
+          description: Pagamento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              example:
+                id: "1"
+                userId: "123"
+                amount: 250.50
+                currency: "BRL"
+                scheduledDate: "2025-10-30T10:00:00Z"
+                status: "pending"
+        '404':
+          description: Pagamento não encontrado
+    put:
+      summary: Atualiza um pagamento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentUpdate'
+            example:
+              amount: 300.00
+              scheduledDate: "2025-11-01T10:00:00Z"
+              status: "completed"
+      responses:
+        '200':
+          description: Pagamento atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              example:
+                id: "1"
+                userId: "123"
+                amount: 300.00
+                currency: "BRL"
+                scheduledDate: "2025-11-01T10:00:00Z"
+                status: "completed"
+    delete:
+      summary: Remove um pagamento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '204':
+          description: Pagamento removido com sucesso
+components:
+  schemas:
+    Payment:
+      type: object
+      required: [id, userId, amount, currency, scheduledDate, status]
+      properties:
+        id:
+          type: string
+          example: "1"
+        userId:
+          type: string
+          example: "123"
+        amount:
+          type: number
+          format: float
+          example: 250.50
+        currency:
+          type: string
+          example: "BRL"
+        scheduledDate:
+          type: string
+          format: date-time
+          example: "2025-10-30T10:00:00Z"
+        status:
+          type: string
+          enum: [pending, completed, canceled]
+          example: "pending"
+    PaymentCreate:
+      type: object
+      required: [userId, amount, currency, scheduledDate]
+      properties:
+        userId:
+          type: string
+          example: "123"
+        amount:
+          type: number
+          format: float
+          example: 250.50
+        currency:
+          type: string
+          example: "BRL"
+        scheduledDate:
+          type: string
+          format: date-time
+          example: "2025-10-30T10:00:00Z"
+    PaymentUpdate:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          example: 300.00
+        scheduledDate:
+          type: string
+          format: date-time
+          example: "2025-11-01T10:00:00Z"
+        status:
+          type: string
+          enum: [pending, completed, canceled]
+          example: "completed"
