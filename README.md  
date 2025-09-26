@@ -1,0 +1,4 @@
+API Models - Payment Scheduling
+
+Este repositório contém a OpenAPI Specification (OAS 3.0) para a API de agendamento de pagamentos. 
+Ele serve como a fonte única de verdade (single source of truth) para front-end e back-end, permitindo gerar automaticamente interfaces, services e SDKs.
