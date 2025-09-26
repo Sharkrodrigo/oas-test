@@ -48,13 +48,13 @@ Como usar no front-end
 
 Clone o repositório:
 
-git clone https://github.com/usuario/api-models.git
+git clone https://github.com/Sharkrodrigo/oas-test
 
 
 Use um generator OpenAPI (ex.: OpenAPI Generator) para criar interfaces e services Angular:
 
 openapi-generator-cli generate \
-  -i https://raw.githubusercontent.com/usuario/api-models/main/openapi.yaml \
+  -i https://raw.githubusercontent.com/Sharkrodrigo/oas-test/main/openapi.yaml \
   -g typescript-angular \
   -o ./src/app/api
 
